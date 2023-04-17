@@ -31,10 +31,8 @@ useEffect(
         const data = await res.json()
        // console.log("dans le data avec la méthode json :", data);
 
-
         //console.log(" Pokemon après le Fetch mais sans la mise à jour de létat avec SetPokemons", pokemons);
-
-         //Mettre à jour le state de la variable pokemons
+        //Mettre à jour le state de la variable pokemons
         setPokemons(data.results)
        // console.log(" Pokemon après le Fetch avec mise à jour de létat avec SetPokemons", pokemons);
 
@@ -67,7 +65,8 @@ useEffect(
           url={"https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYnVudGhlYXIiLCJhIjoiY2tkYTdnOHpmMGI3NDJxbXpoc2QwMXc3MyJ9.nu-giQ821MNuH64prgx2yg"}
           attribution='Pokemon Go !' 
         />
-          <Marker
+        {/*
+           <Marker
             position={[46.6681699, -1.4148661]}
             draggable={true}
             icon={
@@ -84,6 +83,33 @@ useEffect(
             }>
             <Popup>Bulbi</Popup>
           </Marker>
+        */}
+          {
+          pokemons.map(
+            (pokemon, index) => {
+              return (
+                <Marker
+                  position={[46.6681699, -1.4148661]}
+                  draggable={true}
+                  icon={
+                    L.icon({
+                      iconSize: [60, 60],
+                      setRadius: 10,
+                      iconAnchor: [10, 41],
+                      popupAnchor: [2, -40],
+                      shadowSize: [100, 30], // size of the shadow
+                      shadowAnchor: [15, 10],  // the same for the shadow
+                      iconUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png`,
+                      shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
+                    })
+                  }>
+                  <Popup>Bulbi</Popup>
+                </Marker>
+              )
+            })
+          }
+
+       
       </MapContainer>
     
     
