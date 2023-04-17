@@ -9,6 +9,46 @@ export const Map = () => {
   // code JS 👇
 
 
+// Hooks : useState()
+const [pokemons, setPokemons] = useState([])
+//console.log("1. Pokemon avant Fetch", pokemons);
+
+// autre ex:
+// const [meteo, SetMeteo] = useState([])
+
+
+// Hooks : useEffect()
+useEffect(
+  () => {
+
+    // Self-Invoking Anonymous Function
+    (
+      // Fetch API Pokémon
+      async () => {
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/`)
+       // console.log("dans le res :", res);
+
+        const data = await res.json()
+       // console.log("dans le data avec la méthode json :", data);
+
+
+        //console.log(" Pokemon après le Fetch mais sans la mise à jour de létat avec SetPokemons", pokemons);
+
+         //Mettre à jour le state de la variable pokemons
+        setPokemons(data.results)
+       // console.log(" Pokemon après le Fetch avec mise à jour de létat avec SetPokemons", pokemons);
+
+      }
+    )()
+  },
+  []
+)
+
+//console.log("2. Pokemon après Fetch", pokemons);
+
+
+
+
   return (
     // Code JS 👇
 
