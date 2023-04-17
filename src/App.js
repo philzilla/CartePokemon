@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import {Map} from './componants/Map' 
 
 function App() {
   return (
@@ -7,6 +8,7 @@ function App() {
       <div className="row">
         <div className="col">
           <h1>Pokémon Go !</h1>
+          <Map />
         </div>
       </div>
     </div>
