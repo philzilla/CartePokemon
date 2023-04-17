@@ -20,7 +20,7 @@ const [pokemons, setPokemons] = useState([])
 // Hooks : useEffect()
 useEffect(
   () => {
-
+/*
     // Self-Invoking Anonymous Function
     (
       // Fetch API Pokémon
@@ -44,8 +44,29 @@ useEffect(
         }
        // console.log(" Pokemon après le Fetch avec mise à jour de létat avec SetPokemons", pokemons);
     )()
+    */
+    setTimeout(
+      () => {
+        ( // Self-Invoking Anonymous Function
+          async () => {
+            const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=100`)
+            const data = await res.json()
+            // Mettre à jour le state de la variable pokemons
+            setPokemons(
+              data.results.map( (pokemon) => {
+                return {...pokemon, coordinates: [Number(`46.6${Math.floor(Math.random()*1000)}`), Number(`-1.4${Math.floor(Math.random()*1000)}`)] }
+             // return { "toto": pokemon.name, "url": pokemon.url } 
+              } )
+              )
+          }
+        )()
+      },
+      3000 
+    )
+
   },
-  []
+  [pokemons] // UseEffect se déclenche dès que pokemon liste change,
+  //qd il est vide, il se déclenche une fois, si on ne mets pas de crochet, elle se déclenche à l infini
 )
 
 console.log("2. Pokemon après Fetch", pokemons);
