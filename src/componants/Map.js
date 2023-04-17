@@ -25,7 +25,7 @@ useEffect(
     (
       // Fetch API Pokémon
       async () => {
-        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/`)
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=100`)
        // console.log("dans le res :", res);
 
         const data = await res.json()
@@ -33,16 +33,22 @@ useEffect(
 
         //console.log(" Pokemon après le Fetch mais sans la mise à jour de létat avec SetPokemons", pokemons);
         //Mettre à jour le state de la variable pokemons
-        setPokemons(data.results)
+        //setPokemons(data.results)
+        setPokemons(
+          data.results.map( (pokemon) => {
+            return {...pokemon, coordinates: [Number(`46.6${Math.floor(Math.random()*1000)}`), Number(`-1.4${Math.floor(Math.random()*1000)}`)] }
+         // return { "toto": pokemon.name, "url": pokemon.url } 
+          } )
+          )
+          
+        }
        // console.log(" Pokemon après le Fetch avec mise à jour de létat avec SetPokemons", pokemons);
-
-      }
     )()
   },
   []
 )
 
-//console.log("2. Pokemon après Fetch", pokemons);
+console.log("2. Pokemon après Fetch", pokemons);
 
 
 
@@ -88,8 +94,11 @@ useEffect(
           pokemons.map(
             (pokemon, index) => {
               return (
-                <Marker
-                  position={[46.6681699, -1.4148661]}
+                <Marker key={index}
+                  //position={[46.6681699, -1.4148661]}
+                  position={
+                    pokemon.coordinates
+                  }
                   draggable={true}
                   icon={
                     L.icon({
@@ -99,11 +108,11 @@ useEffect(
                       popupAnchor: [2, -40],
                       shadowSize: [100, 30], // size of the shadow
                       shadowAnchor: [15, 10],  // the same for the shadow
-                      iconUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png`,
+                      iconUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index +1}.png`,
                       shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png"
                     })
                   }>
-                  <Popup>Bulbi</Popup>
+                  <Popup>{pokemon.name}</Popup>
                 </Marker>
               )
             })
