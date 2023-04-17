@@ -1,9 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
-import {Map} from './componants/Map' 
+import {Map} from '../componants/Map' 
+import Layout from '../componants/Layouts/Layout';
 
 function App() {
   return (
+
+<Layout content={
+  <>
     <div className="container">
       <div className="row">
         <div className="col">
@@ -12,6 +15,15 @@ function App() {
         </div>
       </div>
     </div>
+  </>
+}>
+
+
+
+</Layout>
+
+
+
   );
 }
 
